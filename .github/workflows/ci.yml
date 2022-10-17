@@ -17,12 +17,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - run: docker-compose -f docker-compose-build.yaml build --parallel
-    - run: docker tag udagram-frontend:local hamzaennaji/udagram-frontend
-    - run: docker tag udagram-api-user hamzaennaji/udagram-api-user
-    - run: docker tag udagram-api-feed hamzaennaji/udagram-api-feed
-    - run: docker tag reverseproxy hamzaennaji/reverseproxy
+    - run: docker tag udagram-frontend hamzaennaji/udagram-frontend:v1
+    - run: docker tag udagram-api-user hamzaennaji/udagram-api-user:v1
+    - run: docker tag udagram-api-feed hamzaennaji/udagram-api-feed:v1
+    - run: docker tag reverseproxy hamzaennaji/reverseproxy:v1
     - run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-    - run: docker push hamzaennaji/udagram-frontend
-    - run: docker push hamzaennaji/udagram-api-user
-    - run: docker push hamzaennaji/udagram-api-feed
-    - run: docker push hamzaennaji/reverseproxy
+    - run: docker push hamzaennaji/udagram-frontend:v1
+    - run: docker push hamzaennaji/udagram-api-user:v1
+    - run: docker push hamzaennaji/udagram-api-feed:v1
+    - run: docker push hamzaennaji/reverseproxy:v1
