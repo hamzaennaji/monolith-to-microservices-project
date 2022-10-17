@@ -16,13 +16,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - run: docker-compose -f docker-compose-build.yaml build --parallel
-    - run: docker tag udagram-frontend hamzaennaji/udagram-frontend:v1
-    - run: docker tag udagram-api-user hamzaennaji/udagram-api-user:v1
-    - run: docker tag udagram-api-feed hamzaennaji/udagram-api-feed:v1
-    - run: docker tag reverseproxy hamzaennaji/reverseproxy:v1
+    - run: docker --version
+    - run: docker build -t udagram-reverseproxy ./udagram-reverseproxy
+    - run: docker tag udagram-reverseproxy hamzaennaji00/reverseproxy:latest
+    - run: docker build -t udagram-api-user ./udagram-api-user
+    - run: docker tag udagram-api-user hamzaennaji00/udagram-api-user:latest
+    - run: docker build -t udagram-api-feed ./udagram-api-feed
+    - run: docker tag udagram-api-feed hamzaennaji00/udagram-api-feed:latest
+    - run: docker build -t udagram-frontend ./udagram-frontend
+    - run: docker tag udagram-frontend hamzaennaji00/udagram-frontend:latest
     - run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-    - run: docker push hamzaennaji/udagram-frontend:v1
-    - run: docker push hamzaennaji/udagram-api-user:v1
-    - run: docker push hamzaennaji/udagram-api-feed:v1
-    - run: docker push hamzaennaji/reverseproxy:v1
+    - run: docker push hamzaennaji00/reverseproxy:latest
+    - run: docker push hamzaennaji00/udagram-api-user:latest
+    - run: docker push hamzaennaji00/udagram-api-feed:latest
+    - run: docker push hamzaennaji00/udagram-frontend:latest
